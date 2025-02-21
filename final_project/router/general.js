@@ -30,37 +30,57 @@ public_users.post("/register", (req, res) => {
 });
 
 // Get the book list available in the shop
-public_users.get("/", function (req, res) {
-  const bookList = Object.values(books);
-  return res.status(200).json({ books: bookList });
+public_users.get("/", async function (req, res) {
+  try {
+    const bookList = Object.values(await books);
+    return res.status(200).json({ books: bookList });
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
 });
 
 // Get book details based on ISBN
-public_users.get("/isbn/:isbn", function (req, res) {
-  const book = books[req.params.isbn];
-  if (!book) {
-    return res.sendStatus(404);
-  }
+public_users.get("/isbn/:isbn", async function (req, res) {
+  try {
+    const book = (await books)[req.params.isbn];
+    if (!book) {
+      return res.sendStatus(404);
+    }
 
-  return res.status(200).json(book);
+    return res.status(200).json(book);
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
 });
 
 // Get book details based on author
-public_users.get("/author/:author", function (req, res) {
-  const booksByAuthor = Object.values(books).filter(
-    (b) => b.author === req.params.author
-  );
+public_users.get("/author/:author", async function (req, res) {
+  try {
+    const booksByAuthor = Object.values(await books).filter(
+      (b) => b.author === req.params.author
+    );
 
-  return res.status(200).json({ books: booksByAuthor });
+    return res.status(200).json({ books: booksByAuthor });
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
 });
 
 // Get all books based on title
-public_users.get("/title/:title", function (req, res) {
-  const booksByTitle = Object.values(books).filter(
-    (b) => b.title === req.params.title
-  );
+public_users.get("/title/:title", async function (req, res) {
+  try {
+    const booksByTitle = Object.values(books).filter(
+      (b) => b.title === req.params.title
+    );
 
-  return res.status(200).json({ books: booksByTitle });
+    return res.status(200).json({ books: booksByTitle });
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
 });
 
 //  Get book review
