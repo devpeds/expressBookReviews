@@ -23,7 +23,7 @@ regd_users.post("/login", (req, res) => {
   }
 
   const token = jwt.sign({ username }, "secret", { expiresIn: 60 * 60 });
-  return res.status(300).json({ token });
+  return res.status(200).json({ token });
 });
 
 // Add a book review
