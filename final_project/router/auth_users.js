@@ -15,8 +15,8 @@ const authenticatedUser = (username, password) => {
   );
 };
 
-//only registered users can login
 regd_users.post("/login", (req, res) => {
+  // #swagger.tags = ['Authentication']
   const { username, password } = req.body;
   if (!authenticatedUser(username, password)) {
     return res.sendStatus(401);
@@ -26,14 +26,17 @@ regd_users.post("/login", (req, res) => {
   return res.status(200).json({ token });
 });
 
-// Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
+  // #swagger.tags = ['Review']
+  // #swagger.description = 'Upsert a book review'
   const reviews = books[req.params.isbn].reviews;
   reviews[req.session.username] = req.body.review;
   return res.status(200).json(reviews);
 });
 
 regd_users.delete("/auth/review/:isbn", (req, res) => {
+  // #swagger.tags = ['Review']
+  // #swagger.description = 'Delete the book review'
   const reviews = books[req.params.isbn].reviews;
   delete reviews[req.session.username];
   return res.status(200).json(reviews);

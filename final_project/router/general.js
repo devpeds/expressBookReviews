@@ -5,6 +5,7 @@ let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
 public_users.post("/register", (req, res) => {
+  // #swagger.tags = ['Authentication']
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -29,8 +30,9 @@ public_users.post("/register", (req, res) => {
     .json({ message: `${username} is registered successfully` });
 });
 
-// Get the book list available in the shop
 public_users.get("/", async function (req, res) {
+  // #swagger.tags = ['Book']
+  // #swagger.description = 'Get the book list available in the shop'
   try {
     const bookList = Object.values(await books);
     return res.status(200).json({ books: bookList });
@@ -40,8 +42,9 @@ public_users.get("/", async function (req, res) {
   }
 });
 
-// Get book details based on ISBN
 public_users.get("/isbn/:isbn", async function (req, res) {
+  // #swagger.tags = ['Book']
+  // #swagger.description = 'Get book details based on ISBN'
   try {
     const book = (await books)[req.params.isbn];
     if (!book) {
@@ -55,8 +58,9 @@ public_users.get("/isbn/:isbn", async function (req, res) {
   }
 });
 
-// Get book details based on author
 public_users.get("/author/:author", async function (req, res) {
+  // #swagger.tags = ['Book']
+  // #swagger.description = 'Get book details based on author'
   try {
     const booksByAuthor = Object.values(await books).filter(
       (b) => b.author === req.params.author
@@ -69,8 +73,9 @@ public_users.get("/author/:author", async function (req, res) {
   }
 });
 
-// Get all books based on title
 public_users.get("/title/:title", async function (req, res) {
+  // #swagger.tags = ['Book']
+  // #swagger.description = 'Get all books based on title'
   try {
     const booksByTitle = Object.values(books).filter(
       (b) => b.title === req.params.title
@@ -83,8 +88,9 @@ public_users.get("/title/:title", async function (req, res) {
   }
 });
 
-//  Get book review
 public_users.get("/review/:isbn", function (req, res) {
+  // #swagger.tags = ['Review']
+  // #swagger.description = 'Get book reviews'
   const book = books[req.params.isbn];
   if (!book) {
     return res.sendStatus(404);

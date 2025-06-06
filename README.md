@@ -5,6 +5,17 @@ Final Project for the Coursera Course:
 - Program: IBM Full Stack Software Developer Professional Certificate
 - Course: [Developing Back-End Apps with Node.js and Express](https://www.coursera.org/learn/developing-backend-apps-with-nodejs-and-express?specialization=ibm-full-stack-cloud-developer)
 
+## Getting Started
+
+```bash
+git clone https://github.com/devpeds/expressBookReviews.git
+
+cd final_project
+pnpm install
+
+pnpm start
+```
+
 ## Features
 
 - Retrieve a list of all books available in the bookshop
@@ -16,3 +27,7 @@ Final Project for the Coursera Course:
 - Modify a book review (logged in users can modify only their own reviews)
 - Delete a book review (logged in users can delete only their own reviews)
 - (Multiple users) Access the application at the same time to view and manage different book reviews simultaneously
+
+### API
+
+Check the [Swagger documentation](http:localhost:5000/swagger) after running server
